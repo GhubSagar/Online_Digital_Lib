@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,7 +66,7 @@
                 <i class="fas fa-times"></i>
             </a>
             <div class="tm-row tm-intro-row">
-                <img src="img/intro1.jpg" alt="Image" class="tm-intro-img">
+                <img src="img/intro.jpg" alt="Image" class="tm-intro-img">
                 <div class="tm-col tm-bg-white tm-intro-pad">
                     <h2 class="tm-color-primary tm-page-title">Introducing Our Library</h2>
                     <div class="tm-row tm-content-row">
@@ -90,7 +89,7 @@
         </div>
 
         <div id="login" class="popup mfp-with-anim mfp-hide tm-bg-gray">
-            <a href="student_login.php">
+            <a href="admin_login.php">
                 Click Here To Login Now:-
             </a>
             
@@ -113,6 +112,7 @@
                 <i class="fas fa-times"></i>
             </a>
             <h2 class="tm-color-primary tm-about-col tm-mb-40 tm-page-title">About VESIT</h2>
+
             <div class="tm-row tm-content-row">
                         <div class="tm-col-6 tm-intro-col-l">
                             <p>
@@ -134,14 +134,13 @@
                                 <a href="#" class="tm-btn tm-btn-primary mfp-prevent-close tm-btn-next">
                                     Next Page
                                 </a>
-                            </div>                            
+                                </div>                            
                         </div>
                     </div>
                 
                 <div class="tm-col tm-about-col">
                    
-                </div>               
-            </div>
+                </div>            
         </div>
 
         <div id="contact" class="popup mfp-with-anim mfp-hide tm-bg-gray">
@@ -153,7 +152,8 @@
             <div class="tm-row tm-contact-row">
                 <div class="tm-col tm-contact-col">
                 
-               
+                <!-- Do you need a working HTML contact form?
+                	Please visit https://templatemo.com/contact page -->
                     
                     <form id="contact-form" action="" method="POST" class="tm-contact-form">
                         <div class="form-group">
@@ -231,7 +231,5 @@
     <script src="js/isotope.pkgd.min.js"></script>
     <script src="js/jquery.magnific-popup.min.js"></script>    
     <script src="js/templatemo-script.js"></script>
-
-    
 </body>
 </html>

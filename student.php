@@ -2,20 +2,16 @@
   include "connection.php";
   include "navbar.php";
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Books</title>
+	<title>Student Information</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
 	<style type="text/css">
 		.srch
 		{
-			padding-left: 1000px;
-
+			padding-left: 850px;
 		}
-		
 		body {
   font-family: "Lato", sans-serif;
   transition: background-color .5s;
@@ -45,7 +41,7 @@
 }
 
 .sidenav a:hover {
-  color: white;
+  color: #f1f1f1;
 }
 
 .sidenav .closebtn {
@@ -78,10 +74,10 @@
 }
 
 	</style>
-
 </head>
 <body>
-	<!--_________________sidenav_______________-->
+
+<!--_________________sidenav_______________-->
 	
 	<div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -90,18 +86,19 @@
 
                 <?php
                 if(isset($_SESSION['login_user']))
-
-                { 	echo "<img class='img-circle profile_img' height=120 width=120 src='images/".$_SESSION['pic']."'>";
+                	
+                { 
+                    echo "<img class='img-circle profile_img' height=120 width=120 src='images/".$_SESSION['pic']."'>";
                     echo "</br></br>";
 
                     echo "Welcome ".$_SESSION['login_user']; 
                 }
+                
                 ?>
-            </div><br><br>
-
- <div class="h"> <a href="add.php">Add Books</a> </div> 
-  <div class="h"> <a href="request.php">Book Request</a></div>
-  <div class="h"> <a href="issue_info.php">Issue Information</a></div>
+            </div>
+<br><br>
+  <div class="h"><a href="request.php">Book Request</a></div>
+  <div class="h"><a href="issue_info.php">Issue Information</a></div>
   <div class="h"><a href="expired.php">Expired List</a></div>
 </div>
 
@@ -123,59 +120,53 @@ function closeNav() {
   document.body.style.backgroundColor = "white";
 }
 </script>
-	<!--___________________search bar________________________-->
 
+	<!--__________________________search bar________________________-->
+<div class="container">
 	<div class="srch">
 		<form class="navbar-form" method="post" name="form1">
 			
-				<input class="form-control" type="text" name="search" placeholder="search books.." required="">
+				<input class="form-control" type="text" name="search" placeholder="Student username.." required="">
 				<button style="background-color: #6db6b9e6;" type="submit" name="submit" class="btn btn-default">
 					<span class="glyphicon glyphicon-search"></span>
 				</button>
 		</form>
-		<form class="navbar-form" method="post" name="form1">
-			
-				<input class="form-control" type="text" name="bid" placeholder="Enter Book ID" required="">
-				<button style="background-color: #6db6b9e6;" type="submit" name="submit1" class="btn btn-default">Delete
-				</button>
-		</form>
 	</div>
 
-	<h2>List Of Books</h2>
+	<h2>List Of Students</h2>
 	<?php
 
 		if(isset($_POST['submit']))
 		{
-			$q=mysqli_query($db,"SELECT * from books where name like '%$_POST[search]%' ");
+			$q=mysqli_query($db,"SELECT first,last,username,roll,email,contact FROM `student` where username like '%$_POST[search]%' ");
 
 			if(mysqli_num_rows($q)==0)
 			{
-				echo "Sorry! No book found. Try searching again.";
+				echo "Sorry! No student found with that username. Try searching again.";
 			}
 			else
 			{
 		echo "<table class='table table-bordered table-hover' >";
 			echo "<tr style='background-color: #6db6b9e6;'>";
 				//Table header
-				echo "<th>"; echo "ID";	echo "</th>";
-				echo "<th>"; echo "Book-Name";  echo "</th>";
-				echo "<th>"; echo "Authors Name";  echo "</th>";
-				echo "<th>"; echo "Edition";  echo "</th>";
-				echo "<th>"; echo "Status";  echo "</th>";
-				echo "<th>"; echo "Quantity";  echo "</th>";
-				echo "<th>"; echo "Department";  echo "</th>";
+				echo "<th>"; echo "First Name";	echo "</th>";
+				echo "<th>"; echo "Last Name";  echo "</th>";
+				echo "<th>"; echo "Username";  echo "</th>";
+				echo "<th>"; echo "Roll";  echo "</th>";
+				echo "<th>"; echo "Email";  echo "</th>";
+				echo "<th>"; echo "Contact";  echo "</th>";
+				
 			echo "</tr>";	
 
 			while($row=mysqli_fetch_assoc($q))
 			{
 				echo "<tr>";
-				echo "<td>"; echo $row['bid']; echo "</td>";
-				echo "<td>"; echo $row['name']; echo "</td>";
-				echo "<td>"; echo $row['authors']; echo "</td>";
-				echo "<td>"; echo $row['edition']; echo "</td>";
-				echo "<td>"; echo $row['status']; echo "</td>";
-				echo "<td>"; echo $row['quantity']; echo "</td>";
-				echo "<td>"; echo $row['department']; echo "</td>";
+				echo "<td>"; echo $row['first']; echo "</td>";
+				echo "<td>"; echo $row['last']; echo "</td>";
+				echo "<td>"; echo $row['username']; echo "</td>";
+				echo "<td>"; echo $row['roll']; echo "</td>";
+				echo "<td>"; echo $row['email']; echo "</td>";
+				echo "<td>"; echo $row['contact']; echo "</td>";
 
 				echo "</tr>";
 			}
@@ -185,56 +176,34 @@ function closeNav() {
 			/*if button is not pressed.*/
 		else
 		{
-			$res=mysqli_query($db,"SELECT * FROM `books` ORDER BY `books`.`name` ASC;");
+			$res=mysqli_query($db,"SELECT first,last,username,roll,email,contact FROM `student`;");
 
 		echo "<table class='table table-bordered table-hover' >";
 			echo "<tr style='background-color: #6db6b9e6;'>";
 				//Table header
-				echo "<th>"; echo "ID";	echo "</th>";
-				echo "<th>"; echo "Book-Name";  echo "</th>";
-				echo "<th>"; echo "Authors Name";  echo "</th>";
-				echo "<th>"; echo "Edition";  echo "</th>";
-				echo "<th>"; echo "Status";  echo "</th>";
-				echo "<th>"; echo "Quantity";  echo "</th>";
-				echo "<th>"; echo "Department";  echo "</th>";
+				echo "<th>"; echo "First Name";	echo "</th>";
+				echo "<th>"; echo "Last Name";  echo "</th>";
+				echo "<th>"; echo "Username";  echo "</th>";
+				echo "<th>"; echo "Roll";  echo "</th>";
+				echo "<th>"; echo "Email";  echo "</th>";
+				echo "<th>"; echo "Contact";  echo "</th>";
 			echo "</tr>";	
 
 			while($row=mysqli_fetch_assoc($res))
 			{
 				echo "<tr>";
-				echo "<td>"; echo $row['bid']; echo "</td>";
-				echo "<td>"; echo $row['name']; echo "</td>";
-				echo "<td>"; echo $row['authors']; echo "</td>";
-				echo "<td>"; echo $row['edition']; echo "</td>";
-				echo "<td>"; echo $row['status']; echo "</td>";
-				echo "<td>"; echo $row['quantity']; echo "</td>";
-				echo "<td>"; echo $row['department']; echo "</td>";
+				
+				echo "<td>"; echo $row['first']; echo "</td>";
+				echo "<td>"; echo $row['last']; echo "</td>";
+				echo "<td>"; echo $row['username']; echo "</td>";
+				echo "<td>"; echo $row['roll']; echo "</td>";
+				echo "<td>"; echo $row['email']; echo "</td>";
+				echo "<td>"; echo $row['contact']; echo "</td>";
 
 				echo "</tr>";
 			}
 		echo "</table>";
 		}
-		if(isset($_POST['submit1']))
-		{
-			if(isset($_SESSION['login_user']))
-			  {
-				mysqli_query($db,"DELETE from books where bid = '$_POST[bid]'; ");
-				?>
-					<script type="text/javascript">
-						alert("Delete Successful.");
-					</script>
-				<?
-			  }
-			else
-			{
-				?>
-					<script type="text/javascript">
-						alert("Please Login First.");
-					</script>
-				<?
-			}
-		}
-		
 
 	?>
 </div>
